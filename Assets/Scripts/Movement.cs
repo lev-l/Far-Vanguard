@@ -347,6 +347,7 @@ public class Movement : MonoBehaviour
     protected Transform _self;
     protected TargetsStackContainer _target;
     private Camera _camera;
+    private ChooseSquad _chooser;
     private Grid _grid;
     private Castle _creator;
     private IState _state;
@@ -354,6 +355,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
+        _chooser = FindObjectOfType<ChooseSquad>();
         _self = GetComponent<Transform>();
         _target = new TargetsStackContainer(_self.position);
         _grid = FindObjectOfType<GridSystem>().grid;
@@ -370,6 +372,10 @@ public class Movement : MonoBehaviour
         {
             Vector2 cursorPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             _state = _state.OnMouseClick(cursorPosition.x, cursorPosition.y);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            _chooser.Unchoose(this);
         }
     }
 

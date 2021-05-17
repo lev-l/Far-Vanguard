@@ -67,6 +67,14 @@ public class ChooseSquad : MonoBehaviour
         return false;
     }
 
+    public void Unchoose(Movement subject)
+    {
+        if(subject == _choosed.Subject)
+        {
+            SetNullChoosed();
+        }
+    }
+
     private void SetNullChoosed()
     {
         _choosed = new ChoosedSquad(null, -1);
