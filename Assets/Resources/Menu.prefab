@@ -272,6 +272,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HaveSelected: {fileID: 21300000, guid: a7f417891c3728e408f7a5cf90ad2b78, type: 3}
   HaventSelected: {fileID: 21300000, guid: b93432a486541ac4a80aa4a0a6e7a34b, type: 3}
+  Pointer: {fileID: 6612552364238915354, guid: add3b042d7f8b3c489d0e6a7326e5034, type: 3}
+  Offset: {x: 0, y: 0.18}
 --- !u!1 &1992280288
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,12 +47,12 @@ public class ChooseSquad : MonoBehaviour
         }
     }
 
-    public void Choose(ChoosedSquad choose)
+    public bool Choose(ChoosedSquad choose)
     {
         if (choose.Subject == _choosed.Subject)
         {
             SetNullChoosed();
-            return;
+            return false;
         }
         if(choose.Priority >= _choosed.Priority)
         {
@@ -61,9 +61,10 @@ public class ChooseSquad : MonoBehaviour
                 _choosed.Subject.GoTo();
             }
             _choosed = choose;
-            _presenter.IsSelected();
-            return; 
+            _presenter.IsSelected(choose.Subject.gameObject);
+            return true; 
         }
+        return false;
     }
 
     private void SetNullChoosed()
