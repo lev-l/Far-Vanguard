@@ -16,12 +16,15 @@ public struct ChoosedSquad
 
 public class ChooseSquad : MonoBehaviour
 {
+    [SerializeField] private Texture2D CursorSetTarget;
+    private bool _moving;
     private Camera _camera;
     private ChoosedSquad _choosed;
     private ChoosedArmyPresenter _presenter;
 
     private void Start()
     {
+        _moving = false;
         _camera = Camera.main;
         _presenter = GetComponent<ChoosedArmyPresenter>();
         SetNullChoosed();
@@ -29,7 +32,18 @@ public class ChooseSquad : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(Input.GetKeyDown(KeyCode.E)
+            && _moving)
+        {
+            _moving = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            _moving = true;
+            Cursor.SetCursor(CursorSetTarget, Vector2.zero, CursorMode.ForceSoftware);
+        }
+
+        if (Input.GetMouseButtonDown(0) && _moving)
         {
             (int x, int y) gridMousePosition = Grid.VectorToGridPosition
                                                         (
@@ -39,6 +53,7 @@ public class ChooseSquad : MonoBehaviour
             {
                 _choosed.Subject.GoTo(gridMousePosition.x,
                                         gridMousePosition.y);
+                _moving = false;
             }
             else
             {
@@ -56,7 +71,8 @@ public class ChooseSquad : MonoBehaviour
         }
         if(choose.Priority >= _choosed.Priority)
         {
-            if(_choosed.Subject != null)
+            if(_moving
+                && _choosed.Subject != null)
             {
                 _choosed.Subject.GoTo();
             }
@@ -77,6 +93,7 @@ public class ChooseSquad : MonoBehaviour
 
     private void SetNullChoosed()
     {
+        _moving = false;
         _choosed = new ChoosedSquad(null, -1);
         _presenter.IsUnselected();
     }
