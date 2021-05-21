@@ -258,6 +258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f3cf93d87e9c24d912c1058dfbf47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SetTargetCursor: {fileID: 2800000, guid: e7353d41c73738f499f25d293bda15f0, type: 3}
+  StandartCursor: {fileID: 2800000, guid: 0ed47ad69a5983a44acc6ee68cd4146c, type: 3}
 --- !u!114 &4938610093440140290
 MonoBehaviour:
   m_ObjectHideFlags: 0

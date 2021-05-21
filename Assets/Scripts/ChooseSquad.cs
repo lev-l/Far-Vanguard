@@ -16,11 +16,32 @@ public struct ChoosedSquad
 
 public class ChooseSquad : MonoBehaviour
 {
-    [SerializeField] private Texture2D CursorSetTarget;
-    private bool _moving;
+    [SerializeField] private Texture2D SetTargetCursor,
+                                        StandartCursor;
+    
     private Camera _camera;
     private ChoosedSquad _choosed;
     private ChoosedArmyPresenter _presenter;
+    private bool moving; // do not use
+    private bool _moving
+    {
+        set
+        {
+            moving = value;
+            if (value)
+            {
+                Cursor.SetCursor(SetTargetCursor, Vector2.zero, CursorMode.ForceSoftware);
+            }
+            else
+            {
+                Cursor.SetCursor(StandartCursor, Vector2.zero, CursorMode.ForceSoftware);
+            }
+        }
+        get
+        {
+            return moving;
+        }
+    }
 
     private void Start()
     {
@@ -40,7 +61,6 @@ public class ChooseSquad : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E))
         {
             _moving = true;
-            Cursor.SetCursor(CursorSetTarget, Vector2.zero, CursorMode.ForceSoftware);
         }
 
         if (Input.GetMouseButtonDown(0) && _moving)
