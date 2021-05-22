@@ -46,7 +46,8 @@ public class SquadAI : MonoBehaviour
                 }
             }
 
-            // Get min distance to squad from towns
+            // Get min distance to squad from towns and get its position
+            (int x, int y) closestPosition = enemyTownsPositions[0];
             (int x, int y) minDistance = GetDistanceGrid(_gridPosition,
                                                         enemyTownsPositions[0]);
             foreach((int x, int y) position in enemyTownsPositions)
@@ -56,10 +57,11 @@ public class SquadAI : MonoBehaviour
                     && minDistance.y > nextDistance.y)
                 {
                     minDistance = nextDistance;
+                    closestPosition = position;
                 }
             }
 
-            _movement.GoTo(minDistance.x, minDistance.y);
+            _movement.GoTo(closestPosition.x, closestPosition.y);
 
             yield return new WaitForSeconds(10);
         }
