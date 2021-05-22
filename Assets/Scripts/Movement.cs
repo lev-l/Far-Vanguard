@@ -294,6 +294,11 @@ public class MoveState : MovementState
             }
         }
 
+        if(neighbors.Count == 0)
+        {
+            Debug.Log("Can`t go to this place, sir!");
+            return Grid.VectorToGridPosition(_self.position);
+        }
         currentPosition = (neighbors[indexOfMin].x, neighbors[indexOfMin].y);
         // don`t consider cells, in what we has ever been
         closed.Add(currentPosition);
