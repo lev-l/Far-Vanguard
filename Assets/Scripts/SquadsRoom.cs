@@ -93,6 +93,15 @@ public class SquadsRoom : MonoBehaviour, Build
         }
     }
 
+    public void DestroySquads()
+    {
+        Destroy(_armyInBord);
+        for (int i = 0; i < _enteredFighters.Count;)
+        {
+            Destroy(_enteredFighters[i].gameObject);
+        }
+    }
+
     public IEnumerator RegenSquads()
     {
         while (true)
