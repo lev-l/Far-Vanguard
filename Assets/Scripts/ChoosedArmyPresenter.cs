@@ -21,6 +21,11 @@ public class ChoosedArmyPresenter : MonoBehaviour
 
     public void IsSelected(GameObject choosed)
     {
+        if (!_instancePointer)
+        {
+            _instancePointer = Instantiate(Pointer);
+            _instancePointer.SetActive(false);
+        }
         _instancePointer.transform.SetParent(choosed.transform);
         _instancePointer.transform.localPosition = Offset;
         _instancePointer.SetActive(true);
