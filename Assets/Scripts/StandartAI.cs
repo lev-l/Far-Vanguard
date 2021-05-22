@@ -110,9 +110,10 @@ public class StandartAI : MonoBehaviour, ICashTaker
             Squad newSquad = Instantiate(SoldierPrefab, _self.position, Quaternion.identity)
                                         .GetComponentInChildren<Squad>();
             newSquad.SetSquadFirst(new Castle(this, gameObject));
-            _income += 100;
+            newSquad.gameObject.AddComponent<SquadAI>().Setup(new Castle(this, gameObject));
+
+            _income += 200;
             _squads.Add(newSquad);
-            Invoke("ArmyGoTo", 0.1f);
         }
     }
 
