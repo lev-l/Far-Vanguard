@@ -77,6 +77,7 @@ public class TownFight : MonoBehaviour
     {
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GridView view = gridSystem.GetComponent<GridView>();
+        GetComponent<SquadsRoom>().DestroySquads();
 
         gridSystem.grid.Cells[_selfGridPosition.x,
                                 _selfGridPosition.y].Items["town"] = Structs.None;
