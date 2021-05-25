@@ -68,6 +68,7 @@ namespace Tests
                                             closed);
 
             TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            MonoBehaviour.Destroy(castle.gameObject);
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);

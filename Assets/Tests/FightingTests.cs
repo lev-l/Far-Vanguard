@@ -81,6 +81,20 @@ namespace Tests
             }
         }
 
+        [UnityTest]
+        public IEnumerator SquadsRoomDestroySquadWithoutFreeze()
+        {
+            (GameObject grid, GameObject camera) objects = Start();
+            SquadsRoom room = new GameObject().AddComponent<SquadsRoom>();
+            yield return null;
+
+            room.DestroySquads();
+
+            MonoBehaviour.Destroy(objects.grid);
+            MonoBehaviour.Destroy(objects.camera);
+            MonoBehaviour.Destroy(room.gameObject);
+        }
+
         [Test]
         public void Fighting100x100Test()
         {
