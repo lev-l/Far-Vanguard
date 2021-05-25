@@ -11,7 +11,7 @@ public class ChoosedArmyPresenter : MonoBehaviour
     private GameObject _instancePointer;
     private Image _table;
 
-    void Start()
+    void Awake()
     {
         _table = transform.GetChild(1).GetComponent<Image>();
 
