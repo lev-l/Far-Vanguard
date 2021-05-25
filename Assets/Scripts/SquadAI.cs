@@ -68,8 +68,16 @@ public class SquadAI : MonoBehaviour
                                                     in TownsContainer.Towns)
         {
             TownMoney townMoney = town.Value.GetComponent<TownMoney>();
-            if ((townMoney && townMoney.Creator.City != _castle.City)
-                || town.Value.gameObject != _castle.City)
+            // if it is town and its enemy add
+            if (townMoney)
+            {
+                if (townMoney.Creator.City != _castle.City)
+                {
+                    enemyTownsPositions.Add(town.Key);
+                }
+            }
+            // it isn`t town, if it is master castle add
+            else if(town.Value.gameObject != _castle.City)
             {
                 enemyTownsPositions.Add(town.Key);
             }
@@ -110,7 +118,7 @@ public class SquadAI : MonoBehaviour
                 closestPosition = position;
             }
         }
-
+        
         return closestPosition;
     }
 
