@@ -6,6 +6,7 @@ public class SquadAI : MonoBehaviour
 {
     private Castle _castle;
     private Movement _movement;
+    private Fighting _figter;
     private Transform _self;
     private (int x, int y) _gridPosition;
 
@@ -22,6 +23,7 @@ public class SquadAI : MonoBehaviour
         }
         _self = GetComponent<Transform>();
         _movement = GetComponent<Movement>();
+        _figter = GetComponentInParent<Fighting>();
 
         StartCoroutine(Attacking());
     }
@@ -30,41 +32,86 @@ public class SquadAI : MonoBehaviour
     {
         while (true)
         {
-            _gridPosition = Grid.VectorToGridPosition(_self.position);
+            (int x, int y) enemyTownPosition = GetClosestEnemyTown();
+            _movement.GoTo(enemyTownPosition.x, enemyTownPosition.y);
 
-            // find all enemy towns
-            List<(int x, int y)> enemyTownsPositions = new List<(int x, int y)>();
-            foreach (KeyValuePair<(int x, int y), TownTag> town
-                                                        in TownsContainer.Towns)
+            yield return new WaitForSeconds(4);
+
+            if(_figter.UnitsNum < 30)
             {
-                TownMoney townMoney = town.Value.GetComponent<TownMoney>();
-                if (townMoney
-                    && (townMoney.Creator.City != _castle.City
-                        || town.Value.gameObject == _castle.City))
-                {
-                    enemyTownsPositions.Add(town.Key);
-                }
+                (int x, int y) friendlyTownPosition = GetClosestFriendlyTown();
+                _movement.GoTo(friendlyTownPosition.x, friendlyTownPosition.y);
             }
-
-            // Get min distance to squad from towns and get its position
-            (int x, int y) closestPosition = enemyTownsPositions[0];
-            (int x, int y) minDistance = GetDistanceGrid(_gridPosition,
-                                                        enemyTownsPositions[0]);
-            foreach((int x, int y) position in enemyTownsPositions)
-            {
-                (int x, int y) nextDistance = GetDistanceGrid(_gridPosition, position);
-                if (minDistance.x > nextDistance.x
-                    && minDistance.y > nextDistance.y)
-                {
-                    minDistance = nextDistance;
-                    closestPosition = position;
-                }
-            }
-
-            _movement.GoTo(closestPosition.x, closestPosition.y);
-
-            yield return new WaitForSeconds(10);
         }
+    }
+
+    private (int x, int y) GetClosestEnemyTown()
+    {
+        _gridPosition = Grid.VectorToGridPosition(_self.position);
+
+        (int x, int y)[] enemyTowns = GetEnemyTowns();
+        return GetClosestPointFromArray(enemyTowns);
+    }
+
+    private (int x, int y) GetClosestFriendlyTown()
+    {
+        _gridPosition = Grid.VectorToGridPosition(_self.position);
+
+        (int x, int y)[] friendlyTowns = GetFriendlyTowns();
+        return GetClosestPointFromArray(friendlyTowns);
+    }
+
+    private (int x, int y)[] GetEnemyTowns()
+    {
+        List<(int x, int y)> enemyTownsPositions = new List<(int x, int y)>();
+        foreach (KeyValuePair<(int x, int y), TownTag> town
+                                                    in TownsContainer.Towns)
+        {
+            TownMoney townMoney = town.Value.GetComponent<TownMoney>();
+            if ((townMoney && townMoney.Creator.City != _castle.City)
+                || town.Value.gameObject != _castle.City)
+            {
+                enemyTownsPositions.Add(town.Key);
+            }
+        }
+
+        return enemyTownsPositions.ToArray();
+    }
+
+    private (int x, int y)[] GetFriendlyTowns()
+    {
+        List<(int x, int y)> friendlyTownsPositons = new List<(int x, int y)>();
+        foreach (KeyValuePair<(int x, int y), TownTag> town
+                                                    in TownsContainer.Towns)
+        {
+            TownMoney townMoney = town.Value.GetComponent<TownMoney>();
+            if ((townMoney && townMoney.Creator.City == _castle.City)
+                || town.Value.gameObject == _castle.City)
+            {
+                friendlyTownsPositons.Add(town.Key);
+            }
+        }
+
+        return friendlyTownsPositons.ToArray();
+    }
+
+    private (int x, int y) GetClosestPointFromArray((int x, int y)[] array)
+    {
+        (int x, int y) closestPosition = array[0];
+        (int x, int y) minDistance = GetDistanceGrid(_gridPosition,
+                                                    array[0]);
+        foreach ((int x, int y) position in array)
+        {
+            (int x, int y) nextDistance = GetDistanceGrid(_gridPosition, position);
+            if ((minDistance.x + minDistance.y)
+                > (nextDistance.x + nextDistance.y))
+            {
+                minDistance = nextDistance;
+                closestPosition = position;
+            }
+        }
+
+        return closestPosition;
     }
 
     private (int x, int y) GetDistanceGrid((int x, int y) first,
