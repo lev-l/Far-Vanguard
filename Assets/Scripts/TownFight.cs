@@ -53,7 +53,7 @@ public class TownFight : MonoBehaviour
     public int Attacked(int strength)
     {
         float strengthPercentage = (float)strength / 100f;
-        float selfStrength = Random.Range(0.1f, 0.7f);
+        float selfStrength = Random.Range(0.01f, 0.7f);
         strengthPercentage -= selfStrength;
         if (strengthPercentage < 0)
         {
