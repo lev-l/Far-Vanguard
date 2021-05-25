@@ -32,7 +32,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
         CentralCastle castle = FindObjectOfType<CentralCastle>();
         _trainCost = castle.GetCosts().forTrain;
         _buildCost = castle.GetCosts().forBuild;
-        _cash = 90;
+        _cash = 9000;
 
         _self = GetComponent<Transform>();
         _gridSystem = FindObjectOfType<GridSystem>();
@@ -88,7 +88,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
             {
                 action = Building;
             }
-            yield return new WaitForSeconds(7);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -115,20 +115,6 @@ public class StandartAI : MonoBehaviour, ICashTaker
             _income += 200;
             _squads.Add(newSquad);
         }
-    }
-
-    private void ArmyGoTo()
-    {
-        GameObject castle = FindObjectOfType<CentralCastle>().gameObject;
-        (int x, int y) castlePosition = Grid
-                                        .VectorToGridPosition(castle
-                                                                .transform
-                                                                .position);
-
-        Squad squad = _squads[_squads.Count - 1];
-        squad.gameObject.SetActive(true);
-        squad.GetComponent<Movement>().GoTo(castlePosition.x,
-                                            castlePosition.y);
     }
 
     private void BuildTown(int turn = 0)
