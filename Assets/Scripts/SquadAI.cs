@@ -6,7 +6,7 @@ public class SquadAI : MonoBehaviour
 {
     private Castle _castle;
     private Movement _movement;
-    private Fighting _figter;
+    private Fighting _fighter;
     private Transform _self;
     private (int x, int y) _gridPosition;
 
@@ -23,7 +23,7 @@ public class SquadAI : MonoBehaviour
         }
         _self = GetComponent<Transform>();
         _movement = GetComponent<Movement>();
-        _figter = GetComponentInParent<Fighting>();
+        _fighter = GetComponentInParent<Fighting>();
 
         StartCoroutine(Attacking());
     }
@@ -32,12 +32,15 @@ public class SquadAI : MonoBehaviour
     {
         while (true)
         {
-            (int x, int y) enemyTownPosition = GetClosestEnemyTown();
-            _movement.GoTo(enemyTownPosition.x, enemyTownPosition.y);
+            if (_fighter.UnitsNum >= 30)
+            {
+                (int x, int y) enemyTownPosition = GetClosestEnemyTown();
+                _movement.GoTo(enemyTownPosition.x, enemyTownPosition.y);
+            }
 
             yield return new WaitForSeconds(4);
 
-            if(_figter.UnitsNum < 30)
+            if(_fighter.UnitsNum < 30)
             {
                 (int x, int y) friendlyTownPosition = GetClosestFriendlyTown();
                 _movement.GoTo(friendlyTownPosition.x, friendlyTownPosition.y);

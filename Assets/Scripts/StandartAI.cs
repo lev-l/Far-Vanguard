@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,7 +32,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
         CentralCastle castle = FindObjectOfType<CentralCastle>();
         _trainCost = castle.GetCosts().forTrain;
         _buildCost = castle.GetCosts().forBuild;
-        _cash = 9000;
+        _cash = 90;
 
         _self = GetComponent<Transform>();
         _gridSystem = FindObjectOfType<GridSystem>();
@@ -88,7 +88,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
             {
                 action = Building;
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(5);
         }
     }
 
