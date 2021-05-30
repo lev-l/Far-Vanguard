@@ -88,6 +88,11 @@ namespace Tests
             SquadsRoom room = new GameObject().AddComponent<SquadsRoom>();
             yield return null;
 
+            Squad squad = new GameObject().AddComponent<Squad>();
+            room.EnterSquad(squad);
+            MonoBehaviour.Destroy(squad.gameObject);
+            yield return null;
+
             room.DestroySquads();
 
             MonoBehaviour.Destroy(objects.grid);
