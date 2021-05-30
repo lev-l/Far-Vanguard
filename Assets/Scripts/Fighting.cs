@@ -9,8 +9,10 @@ public class Fighting : MonoBehaviour
     public bool IsBloked;
     public int UnitsNum;
     private Transform _self;
+    private (int x, int y) _gridPosition;
     private Movement _movement;
     private Castle _creator;
+    private StandartAI _ai;
     private SpriteRenderer _renderer;
 
     void Start()
@@ -18,10 +20,13 @@ public class Fighting : MonoBehaviour
         _self = transform.GetChild(0).GetComponent<Transform>();
         _movement = GetComponentInChildren<Movement>();
         _creator = GetComponentInChildren<Squad>().Creator;
+        _ai = FindObjectOfType<StandartAI>();
         _renderer = GetComponentInChildren<SpriteRenderer>();
 
         StartCoroutine(SetScin());
+        StartCoroutine(AIAttackingMessage());
     }
+
     public void SeeEnemy(Collider2D collision)
     {
         Squad otherSquad = collision.GetComponent<Squad>();
@@ -116,6 +121,29 @@ public class Fighting : MonoBehaviour
         }
     }
 
+    private IEnumerator AIAttackingMessage()
+    {
+        if (!(_creator.Creator is StandartAI))
+        {
+            while (true)
+            {
+                _gridPosition = Grid.VectorToGridPosition(_self.position);
+
+                (int x, int y)[] enemyTowns = GetEnemyTowns();
+                (int x, int y) closestPosition = GetClosestPointFromArray(enemyTowns);
+
+                (int x, int y) minDistance = Grid.GetDistance(_gridPosition, closestPosition);
+                if (minDistance.x + minDistance.y
+                    < 20)
+                {
+                    _ai.Attacked(closestPosition);
+                }
+                yield return new WaitForSecondsRealtime(2);
+            }
+        }
+        yield return null;
+    }
+
     private void SetScinForThis()
     {
         if (UnitsNum > 70)
@@ -174,5 +202,53 @@ public class Fighting : MonoBehaviour
         int strength = Random.Range(min, UnitsNum + 1);
 
         return strength;
+    }
+
+    private (int x, int y)[] GetEnemyTowns()
+    {
+        List<(int x, int y)> enemyTownsPositions = new List<(int x, int y)>();
+        foreach (KeyValuePair<(int x, int y), TownTag> town
+                                                    in TownsContainer.Towns)
+        {
+            TownMoney townMoney = town.Value.GetComponent<TownMoney>();
+            // if it is town and its enemy add
+            if (townMoney)
+            {
+                if (townMoney.Creator.City != _creator.City)
+                {
+                    enemyTownsPositions.Add(town.Key);
+                }
+            }
+            // it isn`t town, if it is master castle add
+            else if (town.Value.gameObject != _creator.City)
+            {
+                enemyTownsPositions.Add(town.Key);
+            }
+        }
+
+        return enemyTownsPositions.ToArray();
+    }
+
+    private (int x, int y) GetClosestPointFromArray((int x, int y)[] array)
+    {
+        if (array.Length > 0)
+        {
+            (int x, int y) closestPosition = array[0];
+            (int x, int y) minDistance = Grid.GetDistance(_gridPosition,
+                                                        array[0]);
+            foreach ((int x, int y) position in array)
+            {
+                (int x, int y) nextDistance = Grid.GetDistance(_gridPosition, position);
+                if ((minDistance.x + minDistance.y)
+                    > (nextDistance.x + nextDistance.y))
+                {
+                    minDistance = nextDistance;
+                    closestPosition = position;
+                }
+            }
+
+            return closestPosition;
+        }
+        return (100, 100);
     }
 }

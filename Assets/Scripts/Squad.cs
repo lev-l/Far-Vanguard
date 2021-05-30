@@ -98,7 +98,6 @@ public class Squad : MonoBehaviour
         {
             return false;
         }
-
     }
 
     protected bool ThereIsTownAndItIsntACastle((int x, int y) position)
