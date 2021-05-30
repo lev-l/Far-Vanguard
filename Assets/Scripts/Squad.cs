@@ -15,7 +15,7 @@ public class Squad : MonoBehaviour
         Creator = creator;
     }
 
-    void Start()
+    private void Start()
     {
         if(Creator == null)
         {

@@ -100,7 +100,10 @@ public class SquadsRoom : MonoBehaviour, Build
         {
             if (_enteredFighters[i])
             {
-                Destroy(_enteredFighters[i].gameObject);
+                if (_enteredFighters[i] != null)
+                {
+                    Destroy(_enteredFighters[i].gameObject);
+                }
                 _enteredFighters.RemoveAt(i);
             }
         }

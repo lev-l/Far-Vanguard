@@ -49,8 +49,6 @@ MonoBehaviour:
     type: 3}
   SoldierPrefab: {fileID: 5446964896382340586, guid: 446b378911eb61649875b8547b36cef2,
     type: 3}
-  buildingSpeed: 5
-  trainingPeriod: 2
 --- !u!114 &1574877327088148902
 MonoBehaviour:
   m_ObjectHideFlags: 0

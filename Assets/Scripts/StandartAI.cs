@@ -195,7 +195,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
 
     private void NullingCells(int x, int y, int layer = 0)
     {
-        int numOfLayers = 10;
+        int numOfLayers = 6;
         layer += Random.Range((int)2, 5);
 
         _values[x, y] = 0;
