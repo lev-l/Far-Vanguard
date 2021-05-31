@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,14 +98,11 @@ public class SquadsRoom : MonoBehaviour, Build
         Destroy(_armyInBord);
         for (int i = 0; i != _enteredFighters.Count;)
         {
-            if (_enteredFighters[i])
+            if (_enteredFighters[i] != null)
             {
-                if (_enteredFighters[i] != null)
-                {
-                    Destroy(_enteredFighters[i].gameObject);
-                }
-                _enteredFighters.RemoveAt(i);
+                Destroy(_enteredFighters[i].gameObject);
             }
+            _enteredFighters.RemoveAt(i);
         }
     }
 
