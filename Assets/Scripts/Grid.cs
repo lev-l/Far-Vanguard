@@ -120,6 +120,13 @@ public class Grid
     {
         return Grid.GridPositionToVector(Grid.VectorToGridPosition(vector));
     }
+
+    public static (int x, int y) GetDistance((int x, int y) first,
+                                            (int x, int y) second)
+    {
+        return (Mathf.Abs(first.x - second.x),
+                Mathf.Abs(first.y - second.y));
+    }
 }
 
 public class Landscape

@@ -39,17 +39,15 @@ namespace Tests
         [UnityTest]
         public IEnumerator SimpleGoTest()
         {
+            TownsContainer.Towns.Clear();
             GameObject gridObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("GridForTests"));
             GameObject camera = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Main Camera"));
             GameObject menu = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Menu"));
             yield return null;
-            CentralCastle castle = MonoBehaviour
-                                    .Instantiate(Resources
-                                    .Load<GameObject>("CenterCastle"))
-                                    .GetComponent<CentralCastle>();
+            EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
-                                            new TargetsStackContainer(new Vector2(5, 5)),
-                                            new Castle(castle, castle.gameObject));
+                                new TargetsStackContainer(new Vector2(1, 1)),
+                                new Castle(castle, camera));
             yield return null;
 
             Dictionary<(int x, int y), (int x, int y)> ways =
@@ -67,7 +65,7 @@ namespace Tests
                                             ways,
                                             closed);
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);
@@ -82,13 +80,10 @@ namespace Tests
             GameObject camera = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Main Camera"));
             GameObject menu = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Menu"));
             yield return null;
-            CentralCastle castle = MonoBehaviour
-                                    .Instantiate(Resources
-                                    .Load<GameObject>("CenterCastle"))
-                                    .GetComponent<CentralCastle>();
+            EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
-                                new TargetsStackContainer(new Vector2(5, 5)),
-                                new Castle(castle, castle.gameObject));
+                                new TargetsStackContainer(new Vector2(1, 1)),
+                                new Castle(castle, camera));
             yield return null;
 
             Dictionary<(int x, int y), (int x, int y)> ways =
@@ -103,7 +98,7 @@ namespace Tests
 
             move.NextCell((5, 5), (1, 1), ways, closed);
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);
@@ -126,7 +121,7 @@ namespace Tests
             yield return null;
             EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
-                                new TargetsStackContainer(new Vector2(5, 5)),
+                                new TargetsStackContainer(new Vector2(1, 1)),
                                 new Castle(castle, camera));
             yield return null;
 
@@ -146,7 +141,7 @@ namespace Tests
                 (5, 7)
             };
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);
@@ -166,13 +161,10 @@ namespace Tests
             GameObject camera = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Main Camera"));
             GameObject menu = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Menu"));
             yield return null;
-            CentralCastle castle = MonoBehaviour
-                                    .Instantiate(Resources
-                                    .Load<GameObject>("CenterCastle"))
-                                    .GetComponent<CentralCastle>();
+            EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
-                                new TargetsStackContainer(new Vector2(5, 5)),
-                                new Castle(castle, castle.gameObject));
+                                new TargetsStackContainer(new Vector2(1, 1)),
+                                new Castle(castle, camera));
             yield return null;
 
             Dictionary<(int x, int y), (int x, int y)> ways =
@@ -201,7 +193,7 @@ namespace Tests
                 (5, 7)
             };
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);
@@ -217,17 +209,15 @@ namespace Tests
         [UnityTest]
         public IEnumerator TurnsCorrectTest()
         {
+            TownsContainer.Towns.Clear();
             GameObject gridObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("GridForTests"));
             GameObject camera = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Main Camera"));
             GameObject menu = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Menu"));
             yield return null;
-            CentralCastle castle = MonoBehaviour
-                                    .Instantiate(Resources
-                                    .Load<GameObject>("CenterCastle"))
-                                    .GetComponent<CentralCastle>();
+            EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
-                                new TargetsStackContainer(new Vector2(5, 5)),
-                                new Castle(castle, castle.gameObject));
+                                new TargetsStackContainer(new Vector2(1, 1)),
+                                new Castle(castle, camera));
             yield return null;
 
             Dictionary<(int x, int y), (int x, int y)> ways =
@@ -252,7 +242,7 @@ namespace Tests
                 (0, 6),
             };
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);
@@ -272,13 +262,10 @@ namespace Tests
             GameObject camera = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Main Camera"));
             GameObject menu = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Menu"));
             yield return null;
-            CentralCastle castle = MonoBehaviour
-                                    .Instantiate(Resources
-                                    .Load<GameObject>("CenterCastle"))
-                                    .GetComponent<CentralCastle>();
+            EmptyCastle castle = new EmptyCastle();
             MoveState move = new MoveState(new GameObject().transform,
                                 new TargetsStackContainer(new Vector2(1, 1)),
-                                new Castle(castle, castle.gameObject));
+                                new Castle(castle, camera));
             yield return null;
 
             Dictionary<(int x, int y), (int x, int y)> ways =
@@ -292,7 +279,7 @@ namespace Tests
                 (5, 7)
             };
 
-            TownsContainer.Towns = new Dictionary<(int x, int y), TownTag>();
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(menu);

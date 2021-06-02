@@ -15,7 +15,7 @@ public class Squad : MonoBehaviour
         Creator = creator;
     }
 
-    void Start()
+    private void Start()
     {
         if(Creator == null)
         {
@@ -98,7 +98,6 @@ public class Squad : MonoBehaviour
         {
             return false;
         }
-
     }
 
     protected bool ThereIsTownAndItIsntACastle((int x, int y) position)

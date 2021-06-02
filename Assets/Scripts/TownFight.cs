@@ -6,12 +6,14 @@ public class TownFight : MonoBehaviour
 {
     public float fortification { get; private set; }
     private Land _land;
+    private SquadsRoom _room;
     private (int x, int y) _selfGridPosition;
 
     void Start()
     {
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         LandsBonuses bonuses = gridSystem.GetComponent<LandsBonuses>();
+        _room = GetComponent<SquadsRoom>();
 
         _selfGridPosition = Grid.VectorToGridPosition(gameObject.transform.position);
 
@@ -53,7 +55,12 @@ public class TownFight : MonoBehaviour
     public int Attacked(int strength)
     {
         float strengthPercentage = (float)strength / 100f;
-        float selfStrength = Random.Range(0.1f, 0.7f);
+        float selfStrength = Random.Range(0.01f + (_room.NumOfSquads * 0.05f)
+                                            , 0.5f + (_room.NumOfSquads * 0.2f));
+
+        print(0.01f + (_room.NumOfSquads * 0.05f));
+        print(0.5f + (_room.NumOfSquads * 0.2f));
+        print(selfStrength);
         strengthPercentage -= selfStrength;
         if (strengthPercentage < 0)
         {
@@ -77,6 +84,7 @@ public class TownFight : MonoBehaviour
     {
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GridView view = gridSystem.GetComponent<GridView>();
+        GetComponent<SquadsRoom>().DestroySquads();
 
         gridSystem.grid.Cells[_selfGridPosition.x,
                                 _selfGridPosition.y].Items["town"] = Structs.None;
