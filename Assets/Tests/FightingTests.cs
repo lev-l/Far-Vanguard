@@ -95,6 +95,8 @@ namespace Tests
 
             room.DestroySquads();
 
+            yield return new WaitForSeconds(2);
+
             MonoBehaviour.Destroy(objects.grid);
             MonoBehaviour.Destroy(objects.camera);
             MonoBehaviour.Destroy(room.gameObject);
