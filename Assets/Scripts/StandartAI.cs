@@ -35,22 +35,9 @@ public class StandartAI : MonoBehaviour, ICashTaker
         _cash = 90;
 
         _self = GetComponent<Transform>();
+        _gridPosition = Grid.VectorToGridPosition(_self.position);
         _gridSystem = FindObjectOfType<GridSystem>();
         _values = new float[_gridSystem.width, _gridSystem.height];
-        
-        foreach(Object cell in _gridSystem.grid.Cells)
-        {
-            if(cell.Items["town"] == Structs.TownCenter
-                && (cell.x, cell.y) != Grid.VectorToGridPosition(
-                                            castle
-                                            .transform
-                                            .position)
-                                        )
-            {
-                _self.position = Grid.GridPositionToVector((cell.x, cell.y));
-                _gridPosition = (cell.x, cell.y);
-            }
-        }
 
         for(int x = 0; x < _values.GetLength(0); x++)
         {

@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639f5b5f8ae736d418c87c2a24690325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Map: Map
+  Map: RiverFriends
   CentralCastlePrefub: {fileID: 1789175535204063638, guid: f815e9bd448c0a54e8e62c74c5166a41,
+    type: 3}
+  AIPrefab: {fileID: 5477945681496061052, guid: 207a5dd8075ee87449e75564fa179997,
     type: 3}
 --- !u!114 &7006056747398351135
 MonoBehaviour:
