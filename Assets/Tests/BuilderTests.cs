@@ -70,6 +70,7 @@ namespace Tests
             Assert.AreEqual(1,
                             GameObject.FindObjectsOfType<TownTag>().Length);
 
+            TownsContainer.Towns.Clear();
             MonoBehaviour.Destroy(camera);
             MonoBehaviour.Destroy(gridObject);
             MonoBehaviour.Destroy(menu);

@@ -74,6 +74,54 @@ public class StandartAI : MonoBehaviour, ICashTaker
         StartCoroutine(Flow());
     }
 
+    public void Attacked((int x, int y) position)
+    {
+        for(int i = 0; i < _squads.Count; i++)
+        {
+            if(_squads[i] == null)
+            {
+                _squads.RemoveAt(i);
+                i--;
+            }
+        }
+
+        Squad[] closestSquad = GetClosestSquadTo(position);
+
+        foreach(Squad squad in closestSquad)
+        {
+            squad.GetComponent<Movement>().GoTo(position.x ,position.y);
+            break;
+        }
+    }
+
+    private Squad[] GetClosestSquadTo((int x, int y) point)
+    {
+        if (_squads.Count > 0)
+        {
+            (int x, int y) minDistance = Grid.GetDistance(point,
+                                                            Grid.VectorToGridPosition(
+                                                                        _squads[0].transform.position
+                                                                        ));
+            Squad closestSquad = _squads[0];
+            foreach (Squad squad in _squads)
+            {
+                (int x, int y) newDistance =
+                    Grid.GetDistance(point, Grid.VectorToGridPosition(squad.transform.position));
+
+                if (newDistance.x + newDistance.y
+                    < minDistance.x + minDistance.y)
+                {
+                    minDistance = newDistance;
+                    closestSquad = squad;
+                }
+            }
+
+            return new Squad[] {closestSquad};
+        }
+
+        return new Squad[0];
+    }
+
     public IEnumerator Flow()
     {
         MainAction action = Building;
@@ -195,7 +243,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
 
     private void NullingCells(int x, int y, int layer = 0)
     {
-        int numOfLayers = 10;
+        int numOfLayers = 6;
         layer += Random.Range((int)2, 5);
 
         _values[x, y] = 0;

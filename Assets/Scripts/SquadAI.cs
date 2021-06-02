@@ -109,11 +109,11 @@ public class SquadAI : MonoBehaviour
     private (int x, int y) GetClosestPointFromArray((int x, int y)[] array)
     {
         (int x, int y) closestPosition = array[0];
-        (int x, int y) minDistance = GetDistanceGrid(_gridPosition,
+        (int x, int y) minDistance = Grid.GetDistance(_gridPosition,
                                                     array[0]);
         foreach ((int x, int y) position in array)
         {
-            (int x, int y) nextDistance = GetDistanceGrid(_gridPosition, position);
+            (int x, int y) nextDistance = Grid.GetDistance(_gridPosition, position);
             if ((minDistance.x + minDistance.y)
                 > (nextDistance.x + nextDistance.y))
             {
@@ -123,12 +123,5 @@ public class SquadAI : MonoBehaviour
         }
         
         return closestPosition;
-    }
-
-    private (int x, int y) GetDistanceGrid((int x, int y) first,
-                                            (int x, int y) second)
-    {
-        return (Mathf.Abs(first.x - second.x),
-                Mathf.Abs(first.y - second.y));
     }
 }
