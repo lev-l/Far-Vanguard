@@ -56,7 +56,7 @@ public class CalmTownState : TownState
                         GameObject menu)
                         : base(town, menu)
     {
-        _creator = town.GetComponent<TownMoney>().Creator;
+        _creator = town.GetComponent<TownTag>().Creator;
     }
 
     public override IState OnMouseClick(float x, float y)

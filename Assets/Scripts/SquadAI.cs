@@ -70,17 +70,7 @@ public class SquadAI : MonoBehaviour
         foreach (KeyValuePair<(int x, int y), TownTag> town
                                                     in TownsContainer.Towns)
         {
-            TownMoney townMoney = town.Value.GetComponent<TownMoney>();
-            // if it is town and its enemy add
-            if (townMoney)
-            {
-                if (townMoney.Creator.City != _castle.City)
-                {
-                    enemyTownsPositions.Add(town.Key);
-                }
-            }
-            // it isn`t town, if it is master castle add
-            else if(town.Value.gameObject != _castle.City)
+            if (town.Value.Creator.City != _castle.City)
             {
                 enemyTownsPositions.Add(town.Key);
             }
@@ -95,9 +85,7 @@ public class SquadAI : MonoBehaviour
         foreach (KeyValuePair<(int x, int y), TownTag> town
                                                     in TownsContainer.Towns)
         {
-            TownMoney townMoney = town.Value.GetComponent<TownMoney>();
-            if ((townMoney && townMoney.Creator.City == _castle.City)
-                || town.Value.gameObject == _castle.City)
+            if (town.Value.Creator.City == _castle.City)
             {
                 friendlyTownsPositons.Add(town.Key);
             }

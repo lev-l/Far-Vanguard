@@ -159,8 +159,7 @@ namespace Tests
             TownExpand town = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Town"))
                                                                 .GetComponent<TownExpand>();
             town.town = new Town(gridSystem.grid, 0, 0);
-            town.GetComponent<TownMoney>().Creator =
-                            new Castle(new EmptyCastle(), town.gameObject);
+            town.GetComponent<TownTag>().SetCreator(new Castle(new EmptyCastle(), town.gameObject));
             town.SpeedOfExpand = 0.1f;
 
 

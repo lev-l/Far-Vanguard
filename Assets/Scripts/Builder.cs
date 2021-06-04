@@ -60,7 +60,7 @@ public class Builder : Movement
                                             Grid.GridPositionToVector((x, y)),
                                             Quaternion.identity);
             newTown.GetComponent<TownExpand>().town = new Town(_grid.grid, x, y);
-            newTown.GetComponent<TownMoney>().Creator = _castle;
+            newTown.GetComponent<TownTag>().SetCreator(_castle);
 
             _castle.Creator.AddFlagTo(newTown.transform);
             return newTown;

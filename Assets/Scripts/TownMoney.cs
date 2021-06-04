@@ -5,8 +5,8 @@ using UnityEngine;
 public class TownMoney : MonoBehaviour
 {
     public GameObject MoneyTakerPrefub;
-    public Castle Creator;
     private TownExpand _town;
+    private TownTag _tag;
     private GameObject _selfMoneyTaker;
     private Vector2 _selfPosition;
     private int Cash = 0;
@@ -15,6 +15,7 @@ public class TownMoney : MonoBehaviour
     {
         _selfPosition = GetComponent<Transform>().position;
         _town = GetComponent<TownExpand>();
+        _tag = GetComponent<TownTag>();
         _selfMoneyTaker = CreateMoneyTaker();
         StartCoroutine(CreateCash());
     }
@@ -31,7 +32,7 @@ public class TownMoney : MonoBehaviour
     {
         GameObject moneyTaker = Instantiate(MoneyTakerPrefub, _selfPosition, Quaternion.identity);
         moneyTaker.GetComponent<Transform>().SetParent(transform);
-        moneyTaker.GetComponent<MoneyTake>().Castle = Creator;
+        moneyTaker.GetComponent<MoneyTake>().Castle = _tag.Creator;
 
         return moneyTaker;
     }

@@ -77,11 +77,9 @@ public class Squad : MonoBehaviour
     {
         (int x, int y) positionOnGrid = Grid.VectorToGridPosition(_self.position);
 
-        TownMoney town;
         if (ThereIsTownAndItIsntACastle(positionOnGrid))
         {
-            town = TownsContainer.Towns[positionOnGrid]
-                                        .GetComponent<TownMoney>();
+            TownTag town = TownsContainer.Towns[positionOnGrid];
             // return true only if master of city the same
             // (we must not enter to the enemi`s city)
             if(town.Creator.City == Creator.City)
