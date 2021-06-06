@@ -393,9 +393,22 @@ public class Movement : MonoBehaviour
                                                                     ),
                                                                 _creator
                 );
+            if (ImOnTown())
+            {
+                TownsContainer.Towns[Grid.VectorToGridPosition(_self.position)]
+                        .GetComponent<SquadsRoom>().ExitSquad();
+
+            }
             return true;
         }
         return false;
+    }
+
+    private bool ImOnTown()
+    {
+        TownTag tag;
+        return TownsContainer.Towns.TryGetValue(Grid.VectorToGridPosition(_self.position)
+                                                                                , out tag);
     }
 
     public void GoTo()

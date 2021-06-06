@@ -9,6 +9,7 @@ public class SquadAI : MonoBehaviour
     private Fighting _fighter;
     private Transform _self;
     private (int x, int y) _gridPosition;
+    private bool _isntWeak;
 
     public void Setup(Castle castle)
     {
@@ -21,9 +22,9 @@ public class SquadAI : MonoBehaviour
         {
             throw new System.Exception("The setup method hadn`t called");
         }
-        _self = GetComponent<Transform>();
-        _movement = GetComponent<Movement>();
-        _fighter = GetComponentInParent<Fighting>();
+        _movement = GetComponentInChildren<Movement>();
+        _self = _movement.transform;
+        _fighter = GetComponent<Fighting>();
 
         StartCoroutine(Attacking());
     }
@@ -32,19 +33,26 @@ public class SquadAI : MonoBehaviour
     {
         while (true)
         {
-            if (_fighter.UnitsNum >= 30)
+            if(_fighter.UnitsNum == 100)
+            {
+                _isntWeak = true;
+            }
+
+
+            if (_isntWeak)
             {
                 (int x, int y) enemyTownPosition = GetClosestEnemyTown();
                 _movement.GoTo(enemyTownPosition.x, enemyTownPosition.y);
             }
+            yield return new WaitForSeconds(2);
 
-            yield return new WaitForSeconds(4);
-
-            if(_fighter.UnitsNum < 30)
+            if(_isntWeak && _fighter.UnitsNum < 30)
             {
+                _isntWeak = false;
                 (int x, int y) friendlyTownPosition = GetClosestFriendlyTown();
                 _movement.GoTo(friendlyTownPosition.x, friendlyTownPosition.y);
             }
+            yield return new WaitForSeconds(2);
         }
     }
 

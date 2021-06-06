@@ -146,7 +146,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
             Squad newSquad = Instantiate(SoldierPrefab, _self.position, Quaternion.identity)
                                         .GetComponentInChildren<Squad>();
             newSquad.SetSquadFirst(new Castle(this, gameObject));
-            newSquad.gameObject.AddComponent<SquadAI>().Setup(new Castle(this, gameObject));
+            newSquad.transform.parent.gameObject.AddComponent<SquadAI>().Setup(new Castle(this, gameObject));
 
             _income += 200;
             _squads.Add(newSquad);

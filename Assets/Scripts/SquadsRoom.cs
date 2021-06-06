@@ -71,6 +71,19 @@ public class SquadsRoom : MonoBehaviour, Build
         NumOfSquads = _enteredSquads.Count;
     }
 
+    public void ExitSquad(Squad squad)
+    {
+        if(_enteredSquads.Count < 0)
+        {
+            throw new Exception("Squad think that it in town, but it isnt");
+        }
+
+        _enteredSquads[0].gameObject.SetActive(true);
+        SquadRemove(squad);
+
+        NumOfSquads = _enteredSquads.Count;
+    }
+
     private void SquadAdd(Squad squad)
     {
         if(_enteredSquads.Count == 0)
@@ -86,6 +99,17 @@ public class SquadsRoom : MonoBehaviour, Build
     {
         _enteredSquads.RemoveAt(0);
         _enteredFighters.RemoveAt(0);
+
+        if(_enteredSquads.Count == 0)
+        {
+            Destroy(_armyInBord);
+        }
+    }
+
+    private void SquadRemove(Squad squad)
+    {
+        _enteredSquads.Remove(squad);
+        _enteredFighters.Remove(squad.GetComponentInParent<Fighting>());
 
         if(_enteredSquads.Count == 0)
         {
