@@ -56,6 +56,7 @@ public class StandartAI : MonoBehaviour, ICashTaker
         }
 
         _isTherePlaceToBuild = true;
+        GetComponent<TownTag>().SetCreator(new Castle(this, gameObject));
         NullingCells(_gridPosition.x, _gridPosition.y);
         StartCoroutine(CalculateIncome());
         StartCoroutine(Flow());

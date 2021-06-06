@@ -222,6 +222,7 @@ public class CentralCastle : MonoBehaviour, ICashTaker
                                             CastleMenu,
                                             _buttons);
 
+        GetComponent<TownTag>().SetCreator(new Castle(this, gameObject));
         AddFlagTo(transform);
     }
 

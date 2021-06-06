@@ -15,7 +15,7 @@ public class TownTag : MonoBehaviour
         gameObject.AddComponent<SquadsRoom>();
         gameObject.AddComponent<TownFight>();
 
-        if(Creator == null)
+        if(Creator.City == null)
         {
             throw new Exception("The method SetCreator did not called");
         }

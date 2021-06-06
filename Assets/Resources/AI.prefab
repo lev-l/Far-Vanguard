@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5243547289300918947}
   - component: {fileID: 4208174028248279465}
-  - component: {fileID: 1574877327088148902}
   - component: {fileID: 4245545061325052167}
   m_Layer: 0
   m_Name: AI
@@ -49,18 +48,6 @@ MonoBehaviour:
     type: 3}
   SoldierPrefab: {fileID: 5446964896382340586, guid: 446b378911eb61649875b8547b36cef2,
     type: 3}
---- !u!114 &1574877327088148902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5477945681496061052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a9b1b3de86e2a4ab121c190fdcf860, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4245545061325052167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,3 +60,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f598f83f01d004645bc1b125d8dca4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Creator:
+    City: {fileID: 0}
