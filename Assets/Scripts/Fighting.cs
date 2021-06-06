@@ -12,7 +12,6 @@ public class Fighting : MonoBehaviour
     private (int x, int y) _gridPosition;
     private Movement _movement;
     private Castle _creator;
-    private StandartAI _ai;
     private SpriteRenderer _renderer;
 
     void Start()
@@ -20,7 +19,6 @@ public class Fighting : MonoBehaviour
         _self = transform.GetChild(0).GetComponent<Transform>();
         _movement = GetComponentInChildren<Movement>();
         _creator = GetComponentInChildren<Squad>().Creator;
-        _ai = FindObjectOfType<StandartAI>();
         _renderer = GetComponentInChildren<SpriteRenderer>();
 
         StartCoroutine(SetScin());
@@ -123,25 +121,25 @@ public class Fighting : MonoBehaviour
 
     private IEnumerator AIAttackingMessage()
     {
-        if (!(_creator.Creator is StandartAI))
+        while (true)
         {
-            while (true)
+            _gridPosition = Grid.VectorToGridPosition(_self.position);
+
+            (int x, int y)[] enemyTowns = GetEnemyTowns();
+            (int x, int y) closestPosition = GetClosestPointFromArray(enemyTowns);
+
+            (int x, int y) minDistance = Grid.GetDistance(_gridPosition, closestPosition);
+            if (minDistance.x + minDistance.y
+                < 20)
             {
-                _gridPosition = Grid.VectorToGridPosition(_self.position);
-
-                (int x, int y)[] enemyTowns = GetEnemyTowns();
-                (int x, int y) closestPosition = GetClosestPointFromArray(enemyTowns);
-
-                (int x, int y) minDistance = Grid.GetDistance(_gridPosition, closestPosition);
-                if (minDistance.x + minDistance.y
-                    < 20)
+                TownTag town = TownsContainer.Towns[closestPosition];
+                if(town.Creator.Creator is StandartAI)
                 {
-                    _ai.Attacked(closestPosition);
+                    town.Creator.City.GetComponent<StandartAI>().Attacked(closestPosition);
                 }
-                yield return new WaitForSecondsRealtime(2);
             }
+            yield return new WaitForSecondsRealtime(2);
         }
-        yield return null;
     }
 
     private void SetScinForThis()
